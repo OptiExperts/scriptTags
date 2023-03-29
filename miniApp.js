@@ -1,0 +1,143 @@
+const div_Main = document.querySelector(".product--container");
+const get_prod_title = document.querySelector(".product-title");
+const sliderDiv = document.createElement("div");
+const heading = document.createElement("h1");
+const desc = document.createElement("p");
+let products = {};
+let productId, title, imgLink, priceTag;
+
+// SLIDER SECTION
+sliderDiv.classList.add("main-carousel");
+
+// GETTING LINK OF THE PRODUCT
+let prod_type_uri = window.location.href.split("/").slice(0, 5).join("/");
+
+// THIS IS THE DATA FETCHED FROM THE LOCATION
+fetch(`${prod_type_uri}/products.json`, {
+    method: "GET", 
+    headers: {
+        "Content-Type": "application/json",
+    }
+})
+.then((response) => response.json())
+.then(async(data) => {
+    // PUTTNG RESPONSE DATA INTO PRODUCTS OBJECT
+    products = data.products;
+
+    // SETTING UP HEADING AND DESCRIPTION FOR THE SLIDER
+    // THIS NGROK SHOULD BE CHANGED TO THE NEW SCRIPTTAG CREATED
+    await fetch("https://88d7-39-33-193-64.in.ngrok.io/send/scriptFile", {
+        method: "POST",
+    })
+    .then((resp) => resp.json())
+    .then((fileContent) => {
+        heading.innerText = "👋" + fileContent.contentArray[0].heading;
+        desc.innerText = fileContent.contentArray[0].description;
+
+        heading.style.textAlign = "center";
+        desc.style.textAlign = "center";
+        sliderDiv.appendChild(heading);
+        sliderDiv.appendChild(desc)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+
+    products.forEach((product, index) => {
+
+        // SKIPPING THE PRODUCT THAT MATCHES THE RESULT OF THE PRODUCT PAGE
+        if(get_prod_title.innerText == product.title) {
+            return;
+        }
+
+        // INNER PRODUCT CARD
+        const innerSection = document.createElement("div");
+        innerSection.style.width = "23%";
+        innerSection.style.margin = "10px"
+        innerSection.style.height = "300px";
+        innerSection.style.padding = "5px";
+        innerSection.style.display = "flex";
+        innerSection.style.alignItems = "center";
+        innerSection.style.flexDirection = "column";
+        innerSection.style.justifyContent = "center"
+        innerSection.style.textAlign = "center";
+        innerSection.style.border = "1px solid #000";
+        innerSection.classList.add("carousal-cell");
+        innerSection.setAttribute("data-variant-id", product.variants[0].id)
+
+        // IMAGE OF THE PRODUCT
+        const prodImage = document.createElement("img");
+        prodImage.style.width = "70%";
+        prodImage.style.height = "auto";
+
+        // TITLE OF THE PRODUCT AND IMAGE
+        const prodTitle = document.createElement("p");
+        prodTitle.style.fontSize = "12px";
+        prodImage.src = product.images[0].src;
+        prodTitle.innerText = product.title.slice(0, 20) + "...";
+        prodTitle.style.margin = "0px";
+
+        // PRICE OF THE PRODUCT
+        const price = document.createElement("p");
+        price.innerText = (product.variants[0].price === null) ? "No Price Tag" : "£" + product.variants[0].price;
+        price.style.fontSize = "10px";
+        price.style.marginTop = "15px";
+
+        // APPENDING CHILDS INTO CARD(innerSection) AND SLIDER(sliderDiv)
+        innerSection.appendChild(prodImage)
+        innerSection.appendChild(price);
+        innerSection.appendChild(prodTitle);
+        sliderDiv.appendChild(innerSection);
+    });
+
+    // APPENDING ALL CHILDS INTO THE THEME 
+    div_Main.appendChild(heading);
+    div_Main.appendChild(desc);
+    div_Main.appendChild(sliderDiv);
+})
+.catch((error) => console.log(error))
+.finally(() => {
+    // RUNNING SLIDER HERE
+    var sliderCarousel = new Flickity(sliderDiv, {
+        cellAlign: 'left',
+        contain: true,
+    });
+    // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
+    let cards = document.querySelectorAll('.carousal-cell');
+    cards.forEach((card, index) => {
+        card.addEventListener('click', async(event) => {
+            // ADDING ITEMS TO THE CART
+            let cart_product = {items: [{"id": products[index].variants[0].id, "quantity": 1}]};
+            let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(cart_product),
+            });
+            if(cart_response.ok) {
+                // CHANGING COUNT OF THE CART BUBBLE
+                let bubble_count = document.querySelector(".site-header-cart--count");
+                if(!bubble_count.classList.contains("visible")) {
+                    bubble_count.classList.add("visible");
+                    bubble_count.setAttribute("data-header-cart-count", "1");
+                } else {
+                    let currentCount = parseInt(bubble_count.getAttribute("data-header-cart-count"));
+                    let newCount = currentCount + 1;
+                    bubble_count.setAttribute("data-header-cart-count", newCount.toString());
+                }
+
+                // DISPLAY TICK AT THE TOP OF PRODUCT
+                let check = document.createElement("div");
+                check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: green;";
+                check.innerText = "✓";
+                card.appendChild(check);
+            } else {
+                console.log("Item could not be added..");
+                // DISPLAY CROOS AT THE TOP OF PRODUCT
+                let check = document.createElement("div");
+                check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: red;";
+                check.innerText = "✖";
+                card.appendChild(check);
+            }
+        })
+    }) 
+}) 
