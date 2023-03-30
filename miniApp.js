@@ -23,7 +23,8 @@ fetch(`${prod_type_uri}/products.json`, {
 .then(async(data) => {
     // PUTTNG RESPONSE DATA INTO PRODUCTS OBJECT
     products = data.products;
-
+    console.log(products);
+    
     // SETTING UP HEADING AND DESCRIPTION FOR THE SLIDER
     // THIS NGROK SHOULD BE CHANGED TO THE NEW SCRIPTTAG CREATED
     await fetch("https://rich-red-hippo-vest.cyclic.app/send/scriptFile", {
