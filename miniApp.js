@@ -1,4 +1,5 @@
-const div_Main = document.querySelector(".product--container");
+// MainProduct-template--14767178252348__main   .product--container   .form-area
+const div_Main = document.querySelector(".form-area");
 const get_prod_title = document.querySelector(".product-title");
 const sliderDiv = document.createElement("div");
 const heading = document.createElement("h1");
@@ -8,6 +9,10 @@ let productId, title, imgLink, priceTag;
 
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
+heading.style.fontSize = "15px";
+heading.style.textAlign = "center";
+desc.style.textAlign = "center";
+desc.style.fontSize = "13px";
 
 // GETTING LINK OF THE PRODUCT
 let prod_type_uri = window.location.href.split("/").slice(0, 5).join("/");
@@ -26,16 +31,15 @@ fetch(`${prod_type_uri}/products.json`, {
 
     // SETTING UP HEADING AND DESCRIPTION FOR THE SLIDER
     // THIS NGROK SHOULD BE CHANGED TO THE NEW SCRIPTTAG CREATED
+    // https://88d7-39-33-193-64.in.ngrok.io/miniApp.js
+    // https://rich-red-hippo-vest.cyclic.app
     await fetch("https://88d7-39-33-193-64.in.ngrok.io/send/scriptFile", {
         method: "POST",
     })
     .then((resp) => resp.json())
     .then((fileContent) => {
-        heading.innerText = "👋" + fileContent.contentArray[0].heading;
+        heading.innerText = "👋 " + fileContent.contentArray[0].heading;
         desc.innerText = fileContent.contentArray[0].description;
-
-        heading.style.textAlign = "center";
-        desc.style.textAlign = "center";
         sliderDiv.appendChild(heading);
         sliderDiv.appendChild(desc)
     })
@@ -52,39 +56,38 @@ fetch(`${prod_type_uri}/products.json`, {
 
         // INNER PRODUCT CARD
         const innerSection = document.createElement("div");
-        innerSection.style.width = "23%";
-        innerSection.style.margin = "10px"
-        innerSection.style.height = "300px";
-        innerSection.style.padding = "5px";
+        innerSection.style.width = "32%";
+        innerSection.style.margin = "5px"
+        innerSection.style.height = "auto";
         innerSection.style.display = "flex";
         innerSection.style.alignItems = "center";
         innerSection.style.flexDirection = "column";
         innerSection.style.justifyContent = "center"
         innerSection.style.textAlign = "center";
-        innerSection.style.border = "1px solid #000";
+        innerSection.style.transition = "all 0.3s";
         innerSection.classList.add("carousal-cell");
         innerSection.setAttribute("data-variant-id", product.variants[0].id)
 
         // IMAGE OF THE PRODUCT
         const prodImage = document.createElement("img");
-        prodImage.style.width = "70%";
+        prodImage.style.width = "80%";
         prodImage.style.height = "auto";
 
         // TITLE OF THE PRODUCT AND IMAGE
         const prodTitle = document.createElement("p");
-        prodTitle.style.fontSize = "12px";
+        prodTitle.style.fontSize = "11px";
         prodImage.src = product.images[0].src;
-        prodTitle.innerText = product.title.slice(0, 20) + "...";
+        prodTitle.innerText = product.title.slice(0, 13) + "...";
         prodTitle.style.margin = "0px";
 
         // PRICE OF THE PRODUCT
         const price = document.createElement("p");
         price.innerText = (product.variants[0].price === null) ? "No Price Tag" : "£" + product.variants[0].price;
-        price.style.fontSize = "10px";
+        price.style.fontSize = "14px";
         price.style.marginTop = "15px";
 
         // APPENDING CHILDS INTO CARD(innerSection) AND SLIDER(sliderDiv)
-        innerSection.appendChild(prodImage)
+        innerSection.appendChild(prodImage);
         innerSection.appendChild(price);
         innerSection.appendChild(prodTitle);
         sliderDiv.appendChild(innerSection);
@@ -101,11 +104,18 @@ fetch(`${prod_type_uri}/products.json`, {
     var sliderCarousel = new Flickity(sliderDiv, {
         cellAlign: 'left',
         contain: true,
+        pageDots: false,
     });
+
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
     let cards = document.querySelectorAll('.carousal-cell');
     cards.forEach((card, index) => {
         card.addEventListener('click', async(event) => {
+            
+            // ADDING EFFECT TO CARD
+            card.style.boxShadow = "0px 0px 15px green";
+
+            card.classList.add("loading-overlay__spinner");
             // ADDING ITEMS TO THE CART
             let cart_product = {items: [{"id": products[index].variants[0].id, "quantity": 1}]};
             let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
@@ -130,6 +140,7 @@ fetch(`${prod_type_uri}/products.json`, {
                 check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: green;";
                 check.innerText = "✓";
                 card.appendChild(check);
+                card.style.boxShadow = "none";
             } else {
                 console.log("Item could not be added..");
                 // DISPLAY CROOS AT THE TOP OF PRODUCT
@@ -138,6 +149,15 @@ fetch(`${prod_type_uri}/products.json`, {
                 check.innerText = "✖";
                 card.appendChild(check);
             }
-        })
-    }) 
+        });
+    
+        card.addEventListener('mouseover', (event) => {
+            card.style.borderRadius = "10px";
+            card.style.border = "1px solid #000";
+        });
+    
+        card.addEventListener('mouseout', (event) => {
+            card.style.border = "none";
+        });
+    })     
 }) 
