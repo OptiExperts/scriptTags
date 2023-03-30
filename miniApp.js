@@ -31,9 +31,7 @@ fetch(`${prod_type_uri}/products.json`, {
 
     // SETTING UP HEADING AND DESCRIPTION FOR THE SLIDER
     // THIS NGROK SHOULD BE CHANGED TO THE NEW SCRIPTTAG CREATED
-    // https://88d7-39-33-193-64.in.ngrok.io/miniApp.js
-    // https://rich-red-hippo-vest.cyclic.app
-    await fetch("https://88d7-39-33-193-64.in.ngrok.io/send/scriptFile", {
+    await fetch("https://rich-red-hippo-vest.cyclic.app/send/scriptFile", {
         method: "POST",
     })
     .then((resp) => resp.json())
