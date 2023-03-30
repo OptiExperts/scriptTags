@@ -4,7 +4,7 @@
   "description": "",
   "main": "scriptTags.js",
   "scripts": {
-    "start": "nodemon scriptTags"
+    "start": "node scriptTags"
   },
   "keywords": [],
   "author": "",

@@ -28,7 +28,7 @@ fetch(`${prod_type_uri}/products.json`, {
 .then(async(data) => {
     // PUTTNG RESPONSE DATA INTO PRODUCTS OBJECT
     products = data.products;
-
+    
     // SETTING UP HEADING AND DESCRIPTION FOR THE SLIDER
     // THIS NGROK SHOULD BE CHANGED TO THE NEW SCRIPTTAG CREATED
     await fetch("https://rich-red-hippo-vest.cyclic.app/send/scriptFile", {
@@ -115,7 +115,7 @@ fetch(`${prod_type_uri}/products.json`, {
 
             card.classList.add("loading-overlay__spinner");
             // ADDING ITEMS TO THE CART
-            let cart_product = {items: [{"id": products[index].variants[0].id, "quantity": 1}]};
+            let cart_product = {items: [{"id": products[index].id, "quantity": 1}]};
             let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
