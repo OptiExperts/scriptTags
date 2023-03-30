@@ -107,15 +107,17 @@ fetch(`${prod_type_uri}/products.json`, {
 
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
     let cards = document.querySelectorAll('.carousal-cell');
-    cards.forEach((card, ind) => {
+    cards.forEach((card, index) => {
         card.addEventListener('click', async(event) => {
+            
+            console.log(index);
             
             // ADDING EFFECT TO CARD
             card.style.boxShadow = "0px 0px 15px green";
 
             card.classList.add("loading-overlay__spinner");
             // ADDING ITEMS TO THE CART
-            let cart_product = {items: [{"id": products[ind+1].variants[0].id, "quantity": 1}]};
+            let cart_product = {items: [{"id": products[index + 1].variants[0].id, "quantity": 1}]};
             let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
