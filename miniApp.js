@@ -65,7 +65,7 @@ fetch(`${prod_type_uri}/products.json`, {
         innerSection.style.textAlign = "center";
         innerSection.style.transition = "all 0.3s";
         innerSection.classList.add("carousal-cell");
-//         innerSection.setAttribute("data-variant-id", product.variants[0].id)
+        innerSection.setAttribute("data-variant-id", products[index].variants[0].id)
 
         // IMAGE OF THE PRODUCT
         const prodImage = document.createElement("img");
@@ -111,7 +111,7 @@ fetch(`${prod_type_uri}/products.json`, {
     cards.forEach((card, index) => {
         card.addEventListener('click', async(event) => {
             
-            console.log("Hello there");
+            alert(index);
             
             // ADDING EFFECT TO CARD
             card.style.boxShadow = "0px 0px 15px green";
