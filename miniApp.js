@@ -49,6 +49,7 @@ fetch(`${prod_type_uri}/products.json`, {
 
         // SKIPPING THE PRODUCT THAT MATCHES THE RESULT OF THE PRODUCT PAGE
         if(get_prod_title.innerText == product.title) {
+            index++;
             return;
         }
 
@@ -117,7 +118,7 @@ fetch(`${prod_type_uri}/products.json`, {
 
             card.classList.add("loading-overlay__spinner");
             // ADDING ITEMS TO THE CART
-            let cart_product = {items: [{"id": products[index + 1].variants[0].id, "quantity": 1}]};
+            let cart_product = {items: [{"id": products[index].variants[0].id, "quantity": 1}]};
             let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
