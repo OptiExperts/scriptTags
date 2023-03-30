@@ -110,7 +110,7 @@ fetch(`${prod_type_uri}/products.json`, {
     cards.forEach((card, index) => {
         card.addEventListener('click', async(event) => {
             
-            console.log(index);
+            console.log("Hello there");
             
             // ADDING EFFECT TO CARD
             card.style.boxShadow = "0px 0px 15px green";
