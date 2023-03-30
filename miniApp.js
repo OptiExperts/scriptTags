@@ -111,14 +111,14 @@ fetch(`${prod_type_uri}/products.json`, {
     cards.forEach((card, index) => {
         card.addEventListener('click', async(event) => {
             
-            alert(index);
+            alert(index+1);
             
             // ADDING EFFECT TO CARD
             card.style.boxShadow = "0px 0px 15px green";
 
             card.classList.add("loading-overlay__spinner");
             // ADDING ITEMS TO THE CART
-            let cart_product = {items: [{"id": products[index].variants[0].id, "quantity": 1}]};
+            let cart_product = {items: [{"id": products[index+1].variants[0].id, "quantity": 1}]};
             let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
