@@ -106,12 +106,8 @@ fetch(`${prod_type_uri}/products.json`, {
         cellAlign: 'left',
         contain: true,
         pageDots: false,
-        prevNextButtons: '.custom-button-container',
+        prevNextButtons: false,
     });
-    
-    var buttonContainer = document.querySelector('.custom-button-container');
-    buttonContainer.style.top = '2%';
-    buttonContainer.style.right = '10px';
 
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
     let cards = document.querySelectorAll('.carousal-cell');
