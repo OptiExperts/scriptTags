@@ -106,7 +106,6 @@ fetch(`${prod_type_uri}/products.json`, {
         cellAlign: 'left',
         contain: true,
         pageDots: false,
-        prevNextButtons: false,
     });
 
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
