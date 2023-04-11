@@ -9,7 +9,6 @@ let productId, title, imgLink, priceTag;
 
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
-document.querySelector(".sliderDiv .flickity-viewport").style.height = "150px";
 heading.style.fontSize = "15px";
 heading.style.textAlign = "center";
 desc.style.textAlign = "center";
@@ -100,12 +99,12 @@ fetch(`${prod_type_uri}/products.json`, {
 })
 .catch((error) => console.log(error))
 .finally(() => {
+    document.querySelector(".sliderDiv .flickity-viewport").style.height = "150px";
     // RUNNING SLIDER HERE
     var sliderCarousel = new Flickity(sliderDiv, {
         cellAlign: 'left',
         contain: true,
-        pageDots: false,
-        prevNextButtons: false,
+        pageDots: false
     });
 
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
