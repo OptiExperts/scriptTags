@@ -9,7 +9,7 @@ let productId, title, imgLink, priceTag;
 
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
-silderDiv.style.backgroundColor = 'green';
+sliderDiv.style.backgroundColor = 'green';
 sliderDiv.style.height = "150px";
 heading.style.fontSize = "15px";
 heading.style.textAlign = "center";
