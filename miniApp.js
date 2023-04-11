@@ -9,6 +9,7 @@ let productId, title, imgLink, priceTag;
 
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
+document.querySelector(".flickity-viewport").style.height = "200px !important";
 heading.style.fontSize = "15px";
 heading.style.textAlign = "center";
 desc.style.textAlign = "center";
@@ -99,7 +100,6 @@ fetch(`${prod_type_uri}/products.json`, {
 })
 .catch((error) => console.log(error))
 .finally(() => {
-    document.querySelector(".flickity-viewport").style.height = "200px !important";
     // RUNNING SLIDER HERE
     var sliderCarousel = new Flickity(sliderDiv, {
         cellAlign: 'left',
