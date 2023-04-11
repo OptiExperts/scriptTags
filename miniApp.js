@@ -99,7 +99,7 @@ fetch(`${prod_type_uri}/products.json`, {
 })
 .catch((error) => console.log(error))
 .finally(() => {
-    document.querySelector(".sliderDiv .flickity-viewport").style.height = "150px";
+    document.querySelector(".flickity-viewport").style.height = "150px";
     // RUNNING SLIDER HERE
     var sliderCarousel = new Flickity(sliderDiv, {
         cellAlign: 'left',
