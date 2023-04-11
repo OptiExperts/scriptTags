@@ -9,6 +9,7 @@ let productId, title, imgLink, priceTag;
 
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
+sliderDiv.style.height = "200px";
 heading.style.fontSize = "15px";
 heading.style.textAlign = "center";
 desc.style.textAlign = "center";
