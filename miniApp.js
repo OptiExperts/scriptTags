@@ -56,7 +56,7 @@ fetch(`${prod_type_uri}/products.json`, {
 
         // INNER PRODUCT CARD
         const innerSection = document.createElement("div");
-        innerSection.style.width = "32%";
+        innerSection.style.width = "calc(40% - 5px)";
         innerSection.style.margin = "5px"
         innerSection.style.height = "auto";
         innerSection.style.display = "flex";
