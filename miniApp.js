@@ -109,10 +109,11 @@ fetch(`${prod_type_uri}/products.json`, {
 .finally(() => {
     // RUNNING SLIDER HERE
     var sliderCarousel = new Flickity(sliderDiv, {
-        cellAlign: 'left',
-        contain: true,
+        freeScroll: true,
+        wrapAround: true,
         pageDots: false,
     });
+
 
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
     let cards = document.querySelectorAll('.carousal-cell');
