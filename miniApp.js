@@ -149,7 +149,7 @@ fetch(`${prod_type_uri}/products.json`, {
                 check.innerText = "✖";
                 card.appendChild(check);
             }
-        });
+        })
         
         card.addEventListener('mouseover', (event) => {
             card.style.borderRadius = "10px";
