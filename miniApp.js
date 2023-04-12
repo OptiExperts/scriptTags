@@ -124,7 +124,6 @@ fetch(`${prod_type_uri}/products.json`, {
                 // ADDING EFFECT TO CARD
                 card.style.boxShadow = "0px 0px 15px green";
                 card.setAttribute("checked", true);
-                check.classList.add("check");
                 card.classList.add("loading-overlay__spinner");
                 // ADDING ITEMS TO THE CART
                 // replace with this while working with cyclic => products[index+1].variants[0].id
@@ -153,6 +152,7 @@ fetch(`${prod_type_uri}/products.json`, {
     
                     // DISPLAY TICK AT THE TOP OF PRODUCT
                     let check = document.createElement("div");
+                    check.classList.add("check");
                     check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: green;";
                     check.innerText = "✓";
                     card.appendChild(check);
@@ -161,6 +161,7 @@ fetch(`${prod_type_uri}/products.json`, {
                     console.log("Item could not be added..");
                     // DISPLAY CROOS AT THE TOP OF PRODUCT
                     let check = document.createElement("div");
+                    check.classList.add("check");
                     check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: red;";
                     check.innerText = "✖";
                     card.appendChild(check);
