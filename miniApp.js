@@ -7,7 +7,6 @@ const desc = document.createElement("p");
 let products = {};
 let productId, title, imgLink, priceTag;
 
-// SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
 sliderDiv.style.hegight = "200px",
 document.querySelector(".flickity-viewport").style.height = "200px !important";
