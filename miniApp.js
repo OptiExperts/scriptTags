@@ -134,7 +134,8 @@ fetch(`${prod_type_uri}/products.json`, {
                     body: JSON.stringify(cart_product),
                 });
                 let result = await cart_response.json();
-                key.push(result.items[index].key);
+                console.log(result);
+//                 key.push(result.items[index].key);
                 if(cart_response.ok) {
                     // CHANGING COUNT OF THE CART BUBBLE
                     // cart-count-bubble
