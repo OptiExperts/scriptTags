@@ -119,7 +119,7 @@ fetch(`${prod_type_uri}/products.json`, {
     let cards = document.querySelectorAll('.carousal-cell');
     cards.forEach((card, index) => {
         card.addEventListener('click', async(event) => {
-            let check = document.createElement("div");
+            
             if(!card.getAttribute("checked")) {
                 // ADDING EFFECT TO CARD
                 card.style.boxShadow = "0px 0px 15px green";
@@ -152,6 +152,7 @@ fetch(`${prod_type_uri}/products.json`, {
                     }
     
                     // DISPLAY TICK AT THE TOP OF PRODUCT
+                    let check = document.createElement("div");
                     check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: green;";
                     check.innerText = "✓";
                     card.appendChild(check);
@@ -159,6 +160,7 @@ fetch(`${prod_type_uri}/products.json`, {
                 } else {
                     console.log("Item could not be added..");
                     // DISPLAY CROOS AT THE TOP OF PRODUCT
+                    let check = document.createElement("div");
                     check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: red;";
                     check.innerText = "✖";
                     card.appendChild(check);
