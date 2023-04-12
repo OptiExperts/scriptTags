@@ -8,7 +8,7 @@ let products = {};
 let productId, title, imgLink, priceTag;
 
 sliderDiv.classList.add("main-carousel");
-sliderDiv.style.hegight = "200px",
+sliderDiv.style.hegight = "300px",
 document.querySelector(".flickity-viewport").style.height = "250px !important";
 heading.style.fontSize = "15px";
 heading.style.textAlign = "center";
