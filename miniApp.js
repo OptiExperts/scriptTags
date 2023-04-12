@@ -160,3 +160,4 @@ fetch(`${prod_type_uri}/products.json`, {
         });
     })     
 }) 
+})
