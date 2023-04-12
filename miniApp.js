@@ -150,6 +150,18 @@ fetch(`${prod_type_uri}/products.json`, {
                 check.innerText = "✖";
                 card.appendChild(check);
             }
+            
+            
+            
+            await fetch(`https://${window.location.host}/cart/change.js`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        id: products[index].variants[0].id,
+                        quantity: 0
+                    }),
+                }).then((response) => response.json()).then((data) => console.log(data)).catch((error) => console.log(error))
+                console.log("👋 Second time Clicked");
         });
     
         card.addEventListener('mouseover', (event) => {
