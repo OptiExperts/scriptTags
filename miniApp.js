@@ -171,7 +171,7 @@ fetch(`${prod_type_uri}/products.json`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
-                        id: key[index],
+                        id: key_prod[index],
                         quantity: 0,
                     }),
                 });
