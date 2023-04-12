@@ -154,7 +154,7 @@ fetch(`${prod_type_uri}/products.json`, {
         card.addEventListener('mouseover', (event) => {
             card.style.borderRadius = "10px";
             card.style.border = "1px solid #000";
-            card.style.transform = "scale(1.1)";
+            card.style.transform = "scale(1.3)";
         });
     
         card.addEventListener('mouseout', (event) => {
