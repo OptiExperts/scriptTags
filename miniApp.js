@@ -1,12 +1,15 @@
-// MainProduct-template--14767178252348__main   .product--container   .form-area
+// #MainProduct-template--14767178252348__main   .product--container   .form-area
 const div_Main = document.querySelector(".form-area");
 const get_prod_title = document.querySelector(".product-title");
 const sliderDiv = document.createElement("div");
 const heading = document.createElement("h1");
 const desc = document.createElement("p");
+// CONVERT THIS TO ARRAY WHILE WORKING WITH NGROK AND TO OBJECT WHILE WITH CYCLIC
 let products = {};
+let key = [];
 let productId, title, imgLink, priceTag;
 
+// SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
 sliderDiv.style.hegight = "300px",
 document.querySelector(".flickity-viewport").style.height = "250px !important";
@@ -28,7 +31,11 @@ fetch(`${prod_type_uri}/products.json`, {
 .then((response) => response.json())
 .then(async(data) => {
     // PUTTNG RESPONSE DATA INTO PRODUCTS OBJECT
+    // FOR CYCLIC
     products = data.products;
+
+    // FOR NGROK
+    // products.push(data.product);
     
     // SETTING UP HEADING AND DESCRIPTION FOR THE SLIDER
     // THIS NGROK SHOULD BE CHANGED TO THE NEW SCRIPTTAG CREATED
@@ -102,8 +109,8 @@ fetch(`${prod_type_uri}/products.json`, {
 .finally(() => {
     // RUNNING SLIDER HERE
     var sliderCarousel = new Flickity(sliderDiv, {
-        freeScroll: true,
-        wrapAround: true,
+        cellAlign: 'left',
+        contain: true,
         pageDots: false,
     });
 
@@ -111,46 +118,79 @@ fetch(`${prod_type_uri}/products.json`, {
     let cards = document.querySelectorAll('.carousal-cell');
     cards.forEach((card, index) => {
         card.addEventListener('click', async(event) => {
-            
-            // ADDING EFFECT TO CARD
-            card.style.boxShadow = "0px 0px 15px green";
-
-            card.classList.add("loading-overlay__spinner");
-            // ADDING ITEMS TO THE CART
-            let cart_product = {items: [{"id": products[index+1].variants[0].id, "quantity": 1}]};
-            let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(cart_product),
-            });
-            if(cart_response.ok) {
-                // CHANGING COUNT OF THE CART BUBBLE
-                let bubble_count = document.querySelector(".site-header-cart--count");
-                if(!bubble_count.classList.contains("visible")) {
-                    bubble_count.classList.add("visible");
-                    bubble_count.setAttribute("data-header-cart-count", "1");
+            let check = document.createElement("div");
+            if(!card.getAttribute("checked")) {
+                // ADDING EFFECT TO CARD
+                card.style.boxShadow = "0px 0px 15px green";
+                card.setAttribute("checked", true);
+                check.classList.add("check");
+                card.classList.add("loading-overlay__spinner");
+                // ADDING ITEMS TO THE CART
+                // replace with this while working with cyclic => products[index+1].variants[0].id
+                let cart_product = {items: [{"id": products[index+1].variants[0].id, "quantity": 1}]};
+                let cart_response = await fetch(`https://${window.location.host}/cart/add.js`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(cart_product),
+                });
+                let result = await cart_response.json();
+                key.push(result.items[index].key);
+                if(cart_response.ok) {
+                    // CHANGING COUNT OF THE CART BUBBLE
+                    // cart-count-bubble
+                    // site-header-cart--count
+    
+                    let bubble_count = document.querySelector(".site-header-cart--count");
+                    if(!bubble_count.classList.contains("visible")) {
+                        bubble_count.classList.add("visible");
+                        bubble_count.setAttribute("data-header-cart-count", "1");
+                    } else {
+                        let currentCount = parseInt(bubble_count.getAttribute("data-header-cart-count"));
+                        let newCount = currentCount + 1;
+                        bubble_count.setAttribute("data-header-cart-count", newCount.toString());
+                    }
+    
+                    // DISPLAY TICK AT THE TOP OF PRODUCT
+                    check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: green;";
+                    check.innerText = "✓";
+                    card.appendChild(check);
+                    card.style.boxShadow = "none";
                 } else {
+                    console.log("Item could not be added..");
+                    // DISPLAY CROOS AT THE TOP OF PRODUCT
+                    check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: red;";
+                    check.innerText = "✖";
+                    card.appendChild(check);
+                }
+            } else {
+                let response = await fetch(`https://${window.location.host}/cart/change.js`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        id: key[index],
+                        quantity: 0,
+                    }),
+                });
+                if(response.ok) {
+                    card.removeAttribute('checked');
+                    card.style.boxShadow = "none";
+                    let tick = card.querySelector(".check");
+                    if(tick instanceof Node) {
+                        card.removeChild(tick);
+                    } else {
+                        console.log("not removed");
+                    }
+                     // CHANGING COUNT OF THE CART BUBBLE
+                    // cart-count-bubble
+                    // site-header-cart--count
+                    let bubble_count = document.querySelector(".site-header-cart--count");
                     let currentCount = parseInt(bubble_count.getAttribute("data-header-cart-count"));
-                    let newCount = currentCount + 1;
+                    let newCount = currentCount - 1;
                     bubble_count.setAttribute("data-header-cart-count", newCount.toString());
                 }
-
-                // DISPLAY TICK AT THE TOP OF PRODUCT
-                let check = document.createElement("div");
-                check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: green;";
-                check.innerText = "✓";
-                card.appendChild(check);
-                card.style.boxShadow = "none";
-            } else {
-                console.log("Item could not be added..");
-                // DISPLAY CROOS AT THE TOP OF PRODUCT
-                let check = document.createElement("div");
-                check.style.cssText = "display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; color: #fff; background-color: red;";
-                check.innerText = "✖";
-                card.appendChild(check);
             }
-        })
-        
+        });
+    
         card.addEventListener('mouseover', (event) => {
             card.style.borderRadius = "10px";
             card.style.border = "1px solid #000";
@@ -160,4 +200,4 @@ fetch(`${prod_type_uri}/products.json`, {
             card.style.border = "none";
         });
     })     
-})
+}) 
