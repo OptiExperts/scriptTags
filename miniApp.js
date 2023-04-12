@@ -6,7 +6,7 @@ const heading = document.createElement("h1");
 const desc = document.createElement("p");
 // CONVERT THIS TO ARRAY WHILE WORKING WITH NGROK AND TO OBJECT WHILE WITH CYCLIC
 let products = {};
-let key = [];
+let key_prod = [];
 let productId, title, imgLink, priceTag;
 
 // SLIDER SECTION
@@ -134,8 +134,7 @@ fetch(`${prod_type_uri}/products.json`, {
                     body: JSON.stringify(cart_product),
                 });
                 let result = await cart_response.json();
-                console.log(result);
-//                 key.push(result.items[index].key);
+                key_prod.push(result.items[0].key);
                 if(cart_response.ok) {
                     // CHANGING COUNT OF THE CART BUBBLE
                     // cart-count-bubble
