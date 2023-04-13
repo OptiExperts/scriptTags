@@ -11,7 +11,7 @@ let productId, title, imgLink, priceTag;
 
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
-sliderDiv.style.hegight = "300px",
+sliderDiv.style.height = "300px",
 heading.style.fontSize = "15px";
 heading.style.textAlign = "center";
 desc.style.textAlign = "center";
@@ -113,9 +113,6 @@ fetch(`${prod_type_uri}/products.json`, {
         pageDots: false,
         setGallerySize: false,
     });
-
-    let slider_height = document.querySelector(".flickity-viewport");
-    slider_height.classList.add('slide-height');
 
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
     let cards = document.querySelectorAll('.carousal-cell');
