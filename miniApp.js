@@ -114,7 +114,8 @@ fetch(`${prod_type_uri}/products.json`, {
         setGallerySize: false,
     });
 
-    document.querySelector(".flickity-viewport").style.height = '200px';
+    let slider_height = document.querySelector(".flickity-viewport")
+    slider_height.style.height = '200px';
 
     // GETTING ALL CARDS TO PERFORM OPERATION ON EACH CARD
     let cards = document.querySelectorAll('.carousal-cell');
