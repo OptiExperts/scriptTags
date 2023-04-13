@@ -109,7 +109,7 @@ fetch(`${prod_type_uri}/products.json`, {
     // RUNNING SLIDER HERE
     var sliderCarousel = new Flickity(sliderDiv, {
         freeScroll: true,
-        wrapAround: true,
+        wrapAround: false,
         pageDots: false,
         setGallerySize: false,
     });
