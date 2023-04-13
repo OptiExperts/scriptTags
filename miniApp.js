@@ -12,7 +12,7 @@ let productId, title, imgLink, priceTag;
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
 sliderDiv.style.hegight = "300px",
-document.querySelector(".flickity-viewport").style.height = "250px !important";
+console.log(document.querySelector(".flickity-viewport"));
 heading.style.fontSize = "15px";
 heading.style.textAlign = "center";
 desc.style.textAlign = "center";
