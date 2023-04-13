@@ -112,6 +112,7 @@ fetch(`${prod_type_uri}/products.json`, {
         freeScroll: true,
         wrapAround: true,
         pageDots: false,
+        setGallerySize: false,
     });
 
 
