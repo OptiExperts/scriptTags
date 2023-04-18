@@ -202,5 +202,7 @@ fetch(`${prod_type_uri}/products.json`, {
         card.addEventListener('mouseout', (event) => {
             card.style.border = "none";
         });
+        
+        document.querySelector(".flickity-prev-next-button.previous").style.left = "-25px";
     })     
 }) 
