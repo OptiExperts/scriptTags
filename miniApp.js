@@ -203,6 +203,7 @@ fetch(`${prod_type_uri}/products.json`, {
             card.style.border = "none";
         });
         
-        document.querySelector(".flickity-prev-next-button.previous").style.left = "-25px";
+        document.querySelector(".flickity-prev-next-button.previous").style.left = "-20px";
+        document.querySelector(".flickity-prev-next-button.next").style.right = "-20px";
     })     
 }) 
