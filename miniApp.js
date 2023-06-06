@@ -8,6 +8,7 @@ const desc = document.createElement("p");
 let products = {};
 let key_prod = [];
 let productId, title, imgLink, priceTag;
+let prod_type;
 
 // SLIDER SECTION
 sliderDiv.classList.add("main-carousel");
@@ -18,15 +19,16 @@ desc.style.textAlign = "center";
 desc.style.fontSize = "13px";
 
 // GETTING LINK OF THE PRODUCT
-let prod_type_uri = window.location.href.split("/").slice(0, 5).join("/");
-
+// let prod_type_uri = window.location.href.at(-1);
 fetch(`${window.location.href}.json`)
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+        prod_type = data.product_type;
+    })
     .catch(error => console.log(error));
 
 // THIS IS THE DATA FETCHED FROM THE LOCATION
-fetch(`${prod_type_uri}/products.json`, {
+fetch(`https://www.inkguru.co.uk/collections/${prod_type}/products.json`, {
     method: "GET", 
     headers: {
         "Content-Type": "application/json",
