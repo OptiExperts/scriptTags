@@ -21,10 +21,7 @@ desc.style.fontSize = "13px";
 let prod_type_uri = window.location.href.split("/").slice(0, 5).join("/");
 let title = window.location.href.split("/").at(-1);
 
-fetch(`https://www.inkguru.co.uk/products/${title}.json`)
-    .then((response) => response.json())
-    .then((data) => console.log(data.json))
-    .catch(error => console.log(error));
+
 
 // THIS IS THE DATA FETCHED FROM THE LOCATION
 fetch(`${prod_type_uri}/products.json`, {
@@ -211,5 +208,10 @@ fetch(`${prod_type_uri}/products.json`, {
         
         document.querySelector(".flickity-prev-next-button.previous").style.left = "-20px";
         document.querySelector(".flickity-prev-next-button.next").style.right = "-20px";
+        
+        fetch(`https://www.inkguru.co.uk/products/${title}.json`)
+    .then((response) => response.json())
+    .then((data) => console.log(data.json))
+    .catch(error => console.log(error));
     })     
 }) 
