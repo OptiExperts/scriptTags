@@ -25,7 +25,9 @@ fetch(`${window.location.href}.json`)
     .then((data) => {
         prod_type = data.product_type;
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error))
+    .finally(() => {
+
 
 // THIS IS THE DATA FETCHED FROM THE LOCATION
 fetch(`https://www.inkguru.co.uk/collections/${prod_type}/products.json`, {
@@ -215,3 +217,4 @@ fetch(`https://www.inkguru.co.uk/collections/${prod_type}/products.json`, {
         
     })          
 }) 
+})
