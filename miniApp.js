@@ -206,9 +206,9 @@ fetch(`${prod_type_uri}/products.json`, {
         document.querySelector(".flickity-prev-next-button.previous").style.left = "-20px";
         document.querySelector(".flickity-prev-next-button.next").style.right = "-20px";
         
-        fetch(`${window.location.href}.json`)
+    })  
+            fetch(`${window.location.href}.json`)
     .then((response) => response.json())
     .then((data) => console.log(data.json))
     .catch(error => console.log(error));
-    })     
 }) 
