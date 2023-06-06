@@ -220,4 +220,4 @@ fetch(`https://www.inkguru.co.uk/collections/${prod_type}/products.json`, {
         
     })          
 }) 
-    }, 2000);
+    }, 1000);
