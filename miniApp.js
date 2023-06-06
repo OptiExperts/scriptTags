@@ -23,8 +23,8 @@ desc.style.fontSize = "13px";
 fetch(`${window.location.href}.json`)
     .then((response) => response.json())
     .then((result) => {
-        prod_type = result.product_type;
-        console.log(result);
+        prod_type = result.product.product_type;
+        console.log(result.product);
         console.log(prod_type);
     })
     .catch(error => console.log(error))
