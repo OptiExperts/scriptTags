@@ -24,6 +24,7 @@ fetch(`${window.location.href}.json`)
     .then((response) => response.json())
     .then((data) => {
         prod_type = data.product_type;
+        console.log(prod_type);
     })
     .catch(error => console.log(error))
     .finally(() => {
@@ -41,7 +42,7 @@ fetch(`https://www.inkguru.co.uk/collections/${prod_type}/products.json`, {
     // PUTTNG RESPONSE DATA INTO PRODUCTS OBJECT
     // FOR CYCLIC
     products = data.products;
-
+    console.log("from second", prod_type);
     // FOR NGROK
     // products.push(data.product);
     
