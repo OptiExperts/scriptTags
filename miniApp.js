@@ -20,6 +20,11 @@ desc.style.fontSize = "13px";
 // GETTING LINK OF THE PRODUCT
 let prod_type_uri = window.location.href.split("/").slice(0, 5).join("/");
 
+fetch(`${window.location.href}.json`)
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch(error => console.log(error));
+
 // THIS IS THE DATA FETCHED FROM THE LOCATION
 fetch(`${prod_type_uri}/products.json`, {
     method: "GET", 
@@ -206,9 +211,5 @@ fetch(`${prod_type_uri}/products.json`, {
         document.querySelector(".flickity-prev-next-button.previous").style.left = "-20px";
         document.querySelector(".flickity-prev-next-button.next").style.right = "-20px";
         
-    })  
-            fetch(`${window.location.href}.json`)
-    .then((response) => response.json())
-    .then((data) => console.log(data.json))
-    .catch(error => console.log(error));
+    })          
 }) 
