@@ -31,6 +31,8 @@ fetch(`${window.location.href}.json`)
 
 
 // THIS IS THE DATA FETCHED FROM THE LOCATION
+setTimeout(() => {
+
 fetch(`https://www.inkguru.co.uk/collections/${prod_type}/products.json`, {
     method: "GET", 
     headers: {
@@ -218,3 +220,4 @@ fetch(`https://www.inkguru.co.uk/collections/${prod_type}/products.json`, {
         
     })          
 }) 
+    }, 2000);
